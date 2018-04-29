@@ -14,7 +14,7 @@
 	images[1]="public/images/banner_1.jpg"
 	// change Images
 	function changeImages() {
-		document.slide.src=images[i]; 
+		document.slide=images[i]; 
 		if (i < images.length - 1) {
 			i++;
 

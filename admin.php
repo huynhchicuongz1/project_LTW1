@@ -58,13 +58,14 @@ if (isset($_GET['action'])) {
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
 
-                <div class="dropdown">
-                    <div class="top-btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >My Account
+                <div class="dropdown" style="padding: 10px;">
+                    <div class="top-btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
+                        <a href="#">My Account</a>
                        <span class="caret"></span></div>
 
                        <ul class="dropdown-menu">
                           <li><?php if (isset($current_user)) {
-                             echo '<a href="#">'.$current_user[0]['user_fullname'].'</a>';
+                             echo '<a href="myaccount.php?username='.$current_user[0]['user_name'].'">'.$current_user[0]['user_fullname'].'</a>';
 
                          }else{
                              echo "<a href='login.php'>Login</a>";
