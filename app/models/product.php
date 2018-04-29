@@ -18,6 +18,11 @@ class Product extends Db
             $item = $this->getLines("SELECT * FROM products WHERE product_id = $item_id");
             return $item;
         }
+
+        public function getItemByName($keyword) {
+            $item = $this->getLines("SELECT * FROM products WHERE product_name LIKE '%$keyword%'");
+            return $item;
+        }
         
         public function editItem($item_id, $item_name,$item_price,$item_desc, $item_image) {
             $query = parent::$connection->prepare('UPDATE products SET product_name=?, product_price=? ,product_desc= ? product_image=?  WHERE product_id=?');

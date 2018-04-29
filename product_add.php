@@ -53,7 +53,7 @@ if (isset($_POST['btn-add'])) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin </a>
+                <a class="navbar-brand" href="index.php">Admin </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -123,7 +123,7 @@ if (isset($_POST['btn-add'])) {
                             <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List User</a>
+                                    <a href="user_list.php">List User</a>
                                 </li>
                                 <li>
                                     <a href="#">Add User</a>

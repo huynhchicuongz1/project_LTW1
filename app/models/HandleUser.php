@@ -12,10 +12,10 @@ class HandleUser extends Db
 		return $users;
 	}
         
-    public function addUser($user_name, $user_pass, $user_full)
+    public function addUser($user_name, $user_pass, $user_full,$user_email,$user_lever)
     {
-        $query = parent::$connection->prepare('INSERT INTO users(user_name, user_pass, user_fullname) VALUE (?, ?, ?)');
-        $query->bind_param('sss', $user_name, $user_pass, $user_full);
+        $query = parent::$connection->prepare('INSERT INTO users ( user_name, user_pass, user_fullname , user_email,user_lever) VALUE (?, ?, ?,?,?)');
+        $query->bind_param('ssssi', $user_name, $user_pass, $user_full,$user_email,$user_lever);
         return $query->execute();
     }
     public function login($username, $password) {
@@ -23,6 +23,11 @@ class HandleUser extends Db
 		return $user;
 
 	}
+	 public function deleteUser($user_id) {
+            $query = parent::$connection->prepare("DELETE FROM users WHERE  user_id = ?");
+            $query->bind_param('i' ,$user_id);
+            return $query->execute();
+     }
 	/*public function login($username, $password, $users) {
 		foreach ($users as $value) {
 			if ($username == $value['user_name'] && $password == $value['user_pass']) {

@@ -19,18 +19,27 @@ $users = $hdlUser->getAllUsers();
 	<meta charset="UTF-8">
 	<title>login screen</title>
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-	<script  src="public/js/login.js"></script>
 	<link rel="stylesheet" href="public/css/style_login.css">
+	<script>
+		$(document).ready(function() {
+			$('#btn-reset').click(function() {
+				$('input').val('');
+			});	
+		});
+		
+	</script>
 </head>
 
 <body>
+	
 	<div class="wrapper">
 		<div class="container">
 			<h1>Welcome</h1>
 			<form action="login.php" class="form" method="POST">
 				<input type="text" name="username" placeholder="Username">
 				<input type="password" name="password" placeholder="Password">
-				<button type="submit" id="login-button" name="btnlogin" value="login">Login</button>
+				<button type="submit" id="btn-login" name="btnlogin" value="login">Login</button>
+				<button type="button" id="btn-reset" name="btnlogin" value="login">Reset</button>
 			</form>
 			<div class="result">
 				<?php 

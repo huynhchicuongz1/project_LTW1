@@ -7,7 +7,8 @@ spl_autoload_register(function($class_name) {
 });
 
 $objproducts= new Product();
-
+$objusers = new HandleUser();
+$users = $objusers->getAllUsers();
 $products= $objproducts->getAllItems();
 if (isset($_SESSION['current_admin'])) 
 {
