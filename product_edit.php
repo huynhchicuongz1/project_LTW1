@@ -2,18 +2,32 @@
     $id=$_GET['id'];
     $objproduct=new Product();
    $product =$objproduct->getItemById($id);
-   
 if (isset($_POST['btn-Edit'])) {
-    $name=$_POST['txtName'];
-   $price=$_POST['txtPrice'];
-   $decs=$_POST['txtDesc'];
-   $image=$_POST['txtImages'];
-   if ($objproduct->editItem($id,$name,$price,$decs,$image)) {
-       echo "successfully";
-   }else
-   {
-     echo "Failed";
-   }
+    $price=$_POST['txtPrice'];
+    $decs=$_POST['txtDesc'];
+    $nameItem = $_POST['txtName'];
+    $nameImage = $_POST['txtImage'];
+     if (is_uploaded_file($_FILES['fileupload']['tmp_name'])) {
+        $uploadDir = "public/uploads/";
+        $nameFile= basename(time() . $_FILES['fileupload']['name']);
+        $targetPath = $uploadDir . basename(time() . $_FILES['fileupload']['name']);
+        if (move_uploaded_file($_FILES['fileupload']['tmp_name'], $targetPath) &&
+            $objproduct->editItem($id, $nameItem,$price, $decs,  $nameFile)) {
+            echo "Edit Successfully.";
+            header("Location:admin.php " );
+        } else {
+            echo "Edit Failed.";
+        }
+    } else {
+        if ($objproduct->editItem($id, $nameItem ,$price, $decs,  $nameImage)) {
+            
+            echo "Edit Successfully.";
+            header("Location:admin.php " );
+        } else {
+
+            echo "Edit Failed.";
+        }
+    }
 
 
 }
@@ -154,31 +168,33 @@ if (isset($_POST['btn-Edit'])) {
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Product
-                            <small>Add</small>
+                            <small>Edit</small>
                         </h1>
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="product_add.php" method="POST">
+                        <form action="product_edit.php?id=<?php echo $product[0]['product_id']; ?>" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input class="form-control" name="txtName" placeholder="Please Enter Username" value="<?php echo $product[0]['product_name'] ?>" />
+                                <input type="text"class="form-control" name="txtName"  value="<?php echo $product[0]['product_name']; ?>" />
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input class="form-control" name="txtPrice" placeholder="Please Enter Password" value="<?php echo $product[0]['product_price'] ?>" />
+                                <input type="text" class="form-control" name="txtPrice"  value="<?php echo $product[0]['product_price']; ?>" />
                             </div>
                             <div class="form-group">
                                 <label>Product Description</label>
-                                <textarea class="form-control" rows="3" name="txtDesc"><?php echo $product[0]['product_desc'] ?></textarea>
+                                <textarea  class="form-control" rows="3" name="txtDesc"><?php echo $product[0]['product_desc']; ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Images</label>
-                                <input type="text" name="txtImages" placeholder="Please Enter image    " value ="<?php echo $product[0]['product_image'] ?>"  >
+                                <input type="file" name="fileupload">
+                                <input type="hidden" name="txtImage" value ="<?php echo $product[0]['product_image']; ?>"  >
                             </div>
                             <button type="submit" class="btn btn-default" name="btn-Edit">Product Edit</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>
+                        
                     </div>
                 </div>
                 <!-- /.row -->

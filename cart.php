@@ -241,13 +241,11 @@ a {
        <div class="col-md-4">
          <div class="dropdown">
            <div class="top-btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
-            <a href="#">
-              <?php if (isset($current_user)) {
-                echo $current_user[0]['user_fullname'];
-              }else{
-                echo "Account";
-              } ?>
-            </a>
+            <?php if (isset($current_user)) {
+              echo $current_user[0]['user_fullname'];
+            }else{
+              echo "Account";
+            } ?>
             <span class="caret"></span>
           </div>
           <ul class="dropdown-menu">

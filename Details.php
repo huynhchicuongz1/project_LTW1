@@ -100,8 +100,8 @@ if (isset($_SESSION['current_user']))
           </form>
         </div>
         <div class="col-md-5">
-          <div class="cart" style="float: right; padding: 10px;">
-            <a href="cart.php">Checkout 
+          <div class="cart" style="float: left; padding: 10px;">
+            <a href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
               <?php 
               if (isset($_SESSION['cart'])) {
                 $total_qty = 0;
@@ -117,13 +117,11 @@ if (isset($_SESSION['current_user']))
         <div class="col-md-4">
           <div class="dropdown">
             <div class="top-btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
-              <a href="#">
-                <?php if (isset($current_user)) {
-                  echo $current_user[0]['user_fullname'];
-                }else{
-                  echo "Account";
-                } ?>
-              </a>
+              <?php if (isset($current_user)) {
+                echo $current_user[0]['user_fullname'];
+              }else{
+                echo "Account";
+              } ?>
               <span class="caret"></span></div>
               <ul class="dropdown-menu">
                 <?php if (isset($current_user)) {

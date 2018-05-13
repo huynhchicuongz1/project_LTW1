@@ -4,8 +4,33 @@ if (isset($_POST['btn-add'])) {
    $name=$_POST['txtName'];
    $price=$_POST['txtPrice'];
    $decs=$_POST['txtDesc'];
-   $image=$_POST['txtImages'];
-   $objproduct->addItem($name, $price,$decs,$image);
+   if($_FILES['file']['name'] != NULL){ // Đã chọn file
+        // Tiến hành code upload file
+        if($_FILES['file']['type'] == "image/jpeg"
+        || $_FILES['file']['type'] == "image/png"
+        || $_FILES['file']['type'] == "image/gif"){
+        // là file ảnh
+        // Tiến hành code upload    
+            if($_FILES['file']['size'] > 2097152){
+                echo "<>File không được lớn hơn 2mb";
+            }else{
+                // file hợp lệ, tiến hành upload
+                $path = "public/uploads/"; // file sẽ lưu vào thư mục data
+                $tmp_name = $_FILES['file']['tmp_name'];
+                $nameImage = basename(time().$_FILES['file']['name']);
+                $type = $_FILES['file']['type']; 
+                $size = $_FILES['file']['size']; 
+                // Upload file
+                move_uploaded_file($tmp_name,$path.$nameImage);
+                $objproduct->addItem($name, $price,$decs,$nameImage);   
+               	echo "Added Successfully.";
+                header('location:admin.php');
+           }
+        }
+      
+  
+   };
+   
    
 }
 ?>
@@ -22,7 +47,7 @@ if (isset($_POST['btn-add'])) {
     <script type="text/javascript" src="public/js/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
-   
+   	
 
     <!-- MetisMenu CSS -->
     <link href="public/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -41,6 +66,7 @@ if (isset($_POST['btn-add'])) {
 </head>
 
 <body>
+
 
     <div id="wrapper">
 
@@ -149,7 +175,7 @@ if (isset($_POST['btn-add'])) {
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="product_add.php" method="POST">
+                        <form action="product_add.php" method="POST"  enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" name="txtName" placeholder="Please Enter Username" />
@@ -164,7 +190,7 @@ if (isset($_POST['btn-add'])) {
                             </div>
                             <div class="form-group">
                                 <label>Images</label>
-                                <input type="text" name="txtImages" placeholder="Please Enter image">
+                                <input type="file" name="file"  size="20">
                             </div>
                             <button type="submit" class="btn btn-default" name="btn-add">Product Add</button>
                             <button type="reset" class="btn btn-default">Reset</button>
